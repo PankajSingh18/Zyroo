@@ -1,6 +1,47 @@
 # ZyroAI
 
-ZyroAI is an AI assistant for chat, custom agents, image understanding, and connected services such as Gmail, Google Calendar, and Instagram.
+ZyroAI is a web-based AI assistant for chatting, creating custom agents, understanding images, and automating tasks through connected services such as Gmail, Google Calendar, and Instagram.
+
+## What the project does
+
+- **AI chat:** Ask questions and continue conversations with saved thread context.
+- **Custom agents:** Create agents with their own instructions, model settings, and tools.
+- **Image understanding:** Upload an image and ask the assistant to describe or analyze it.
+- **Connected services:** Authorize Google services and use agent tools to work with email and calendar data. Instagram publishing is also supported when configured.
+- **Human approval:** Review sensitive actions, such as sending an email, creating a calendar event, or publishing an Instagram post, before they execute.
+- **Credits and payments:** Chat and agent actions use credits; users can purchase more through the pricing page.
+
+## How it works
+
+1. The **React frontend** sends chat, agent, and integration requests to the backend API.
+2. The **Express backend** authenticates requests, loads user and agent data from MongoDB, and runs chat workflows.
+3. **LangChain and LangGraph** connect the configured Groq model to conversation history, agent instructions, and tools.
+4. The backend exposes integrations as **MCP tools**. The AI can request a tool, but approval-protected actions pause for user confirmation before they run.
+5. Firebase provides Google sign-in. The backend verifies the Firebase ID token and issues an HTTP-only session cookie.
+6. Cloudinary stores uploaded images. Gemini or the configured vision fallback analyzes image content.
+
+## Main technologies
+
+- **Frontend:** React, Vite, Tailwind CSS, Redux Toolkit, Firebase Web SDK
+- **Backend:** Node.js, Express, MongoDB, Mongoose
+- **AI and tools:** Groq, LangChain, LangGraph, Model Context Protocol (MCP), Google Gemini
+- **Integrations:** Google OAuth, Gmail, Google Calendar, Instagram, Cloudinary, Razorpay
+
+## Project structure
+
+```text
+backend/
+  controllers/  API request handlers
+  services/     Chat and agent workflows
+  mcp/          MCP server and integration tools
+  models/       MongoDB data models
+  routes/       Express API routes
+  config/       Database, Firebase, and provider setup
+frontend/
+  src/pages/    Chat, login, agents, integrations, and pricing screens
+  src/features/ Frontend API calls
+  src/components/ Shared UI and brand components
+```
 
 ## Requirements
 
