@@ -90,6 +90,8 @@ GOOGLE_REDIRECT_URI=http://localhost:8000/api/integrations/google/callback
 
 Add that exact callback URL to the OAuth client's **Authorized redirect URIs** in Google Cloud Console.
 
+For production deployments where the frontend and backend use different origins, set `NODE_ENV=production` on the backend. Authentication cookies then use `SameSite=None; Secure`, which allows the browser to send the session cookie with credentialed API requests. Also set `CLIENT_URL` to the exact frontend origin (for example, `https://your-frontend.onrender.com`) and configure the frontend's `VITE_SERVER_URL` to the backend's public URL.
+
 Optional integrations:
 
 - Image understanding: `GOOGLE_API_KEY` and `GEMINI_VISION_MODEL` (defaults to `gemini-2.5-flash`). If Gemini is not configured, image analysis can use the Groq vision fallback.
